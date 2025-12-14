@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Vdကြည့်ပြီး - ဝင်ငွေရှာမယ်</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Code (သင့်မူရင်းအတိုင်း မပြောင်းလဲပါ) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0088cc 0%, #00aced 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, #ffcc00, #ffeb3b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #e0e0ff;
+        }
+        
+        /* Telegram Link: 'https//' မှ 'https://' သို့ ပြင်ဆင်ရန် */
+        .telegram-contact {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(45deg, #0088cc, #00aced);
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 136, 204, 0.4);
+        }
+        
+        .telegram-contact:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 136, 204, 0.6);
+        }
+        
+        .telegram-contact i {
+            margin-right: 6px;
+            font-size: 1.2rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .channel-section {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .channel-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .channel-placeholder {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .channel-placeholder i {
+            font-size: 3.5rem;
+            color: #ffcc00;
+            margin-bottom: 12px;
+        }
+        
+        .channel-placeholder h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: #ffcc00;
+        }
+        
+        .channel-placeholder p {
+            color: #c0c0ff; /* Added consistent color for paragraph text */
+        }
+        
+        .stats-section {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .time-card, .earnings-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .card-title i {
+            margin-right: 8px;
+            font-size: 1.4rem;
+        }
+        
+        .time-display {
+            font-size: 2.2rem;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            color: #4cff00;
+            text-shadow: 0 0 8px rgba(76, 255, 0, 0.5);
+        }
+        
+        .earnings-display {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            color: #ffcc00;
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+        }
+        
+        .rate-info {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #a0e0ff;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .start-btn {
+            background: linear-gradient(45deg, #00c853, #64dd17);
+            color: white;
+            box-shadow: 0 3px 8px rgba(0, 200, 83, 0.4);
+        }
+        
+        .start-btn:hover {
+            background: linear-gradient(45deg, #00e676, #76ff03);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0, 230, 118, 0.6);
+        }
+        
+        .pause-btn {
+            background: linear-gradient(45deg, #ff9100, #ffab40);
+            color: white;
+            box-shadow: 0 3px 8px rgba(255, 145, 0, 0.4);
+        }
+        
+        .pause-btn:hover {
+            background: linear-gradient(45deg, #ffb300, #ffca28);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(255, 179, 0, 0.6);
+        }
+        
+        .reset-btn {
+            background: linear-gradient(45deg, #ff1744, #ff5252);
+            color: white;
+            box-shadow: 0 3px 8px rgba(255, 23, 68, 0.4);
+        }
+        
+        .reset-btn:hover {
+            background: linear-gradient(45deg, #ff4569, #ff7979);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(255, 69, 105, 0.6);
+        }
+        
+        button i {
+            margin-right: 5px;
+            font-size: 1rem;
+        }
+        
+        .history-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            margin-top: 12px;
+        }
+        
+        .history-title {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .history-title i {
+            margin-right: 8px;
+            color: #ffcc00;
+        }
+        
+        .history-list {
+            max-height: 180px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+            font-size: 0.85rem;
+        }
+        
+        .history-item:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .history-time {
+            font-weight: bold;
+            color: #4cff00;
+        }
+        
+        .history-earnings {
+            font-weight: bold;
+            color: #ffcc00;
+        }
+        
+        .device-info {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #c0c0ff;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .time-display, .earnings-display {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fab fa-telegram"></i> Telegram Videosကြည့်ရင်း ဝင်ငွေရှာကြမယ်</h1>
+            <p class="subtitle">တစ်နာရီလျှင် ၉၀,၀၀၀ ကျပ် ဝင်ငွေရှာဖွေနိုင်ပါသည်</p>
+            
+            <a href="https://t.me/venn425" class="telegram-contact" target="_blank">
+                <i class="fab fa-telegram"></i> Telegram - @AhPoeOfficialAccount
+            </a>
+        </header>
+        
+        <div class="main-content">
+            <section class="channel-section">
+                <h2><i class="fas fa-play-circle"></i> Telegram Video👇🏼</h2>
+                <div class="channel-container">
+                    <div class="channel-placeholder">
+                        <i class="fab fa-telegram"></i>
+                        <h3>Telegram Videoများ</h3>
+                        <p>Video ကြည့်ရှုခြင်းဖြင့် ဝင်ငွေရရှိပါမည်</p>
+                        <p style="font-size: 0.8rem; margin-top: 10px; color: #a0e0ff;">
+                            စတင်ရန် Resetခလုပ်နှိပ်ပြီး Startခလုပ်နှိပ်မှသာ အချိန်နဲ့ ဝင်ငွေတိုးမည်
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button class="start-btn" id="startBtn">
+                        <i class="fas fa-play"></i> Start
+                    </button>
+                    <button class="pause-btn" id="pauseBtn" disabled>
+                        <i class="fas fa-pause"></i> Pause
+                    </button>
+                    <button class="reset-btn" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </section>
+            
+            <section class="stats-section">
+                <div class="time-card">
+                    <div class="card-title">
+                        <i class="fas fa-clock"></i> ကြည့်ရှုထားသောအချိန်
+                    </div>
+                    <div class="time-display" id="timeDisplay">
+                        00:00:00
+                    </div>
+                    <div class="rate-info">
+                        <i class="fas fa-info-circle"></i> အပေါ်တွင် ကြည့်ရှုထားသောအချိန်ကို ပြသထားသည်
+                    </div>
+                </div>
+                
+                <div class="earnings-card">
+                    <div class="card-title">
+                        <i class="fas fa-money-bill-wave"></i> ရရှိမည့်ငွေပမာဏ
+                    </div>
+                    <div class="earnings-display" id="earningsDisplay">
+                        0 ကျပ်
+                    </div>
+                    <div class="rate-info">
+                        <i class="fas fa-info-circle"></i> ၁ နာရီလျှင် ၉၀,၀ ၀၀ ကျပ် ဝင်ငွေရရှိမည်
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <section class="history-section">
+            <div class="history-title">
+                <i class="fas fa-history"></i> ကြည့်ရှုမှု မှတ်တမ်း
+            </div>
+            <div class="history-list" id="historyList">
+                <div class="history-item">
+                    <span class="history-time">စတင်ချိန်: <span id="startTimeDisplay">-</span></span>
+                    <span class="history-earnings">လက်ရှိငွေ: <span id="currentEarningsDisplay">0 ကျပ်</span></span>
+                </div>
+            </div>
+        </section>
+        
+        <div class="device-info">
+            <i class="fas fa-mobile-alt"></i> ဝင်ရောက်ချိန်: <span id="deviceLoginTime">-</span> |
+            Device: <span id="deviceType">-</span>
+        </div>
+    </div>
+
+    <script>
+        // Variables
+        let totalSeconds = 0;
+        let isRunning = false;
+        let timerInterval = null;
+        let earnings = 0;
+        const ratePerHour = 90000; // တစ်နာရီ ၉၀,၀၀၀ ကျပ်
+        const ratePerSecond = ratePerHour / 3600; // စက္ကန့်တစ်ခုလျှင်
+        let history = [];
+        
+        // DOM Elements
+        const timeDisplay = document.getElementById('timeDisplay');
+        const earningsDisplay = document.getElementById('earningsDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const historyList = document.getElementById('historyList');
+        const startTimeDisplay = document.getElementById('startTimeDisplay');
+        const currentEarningsDisplay = document.getElementById('currentEarningsDisplay');
+        const deviceLoginTime = document.getElementById('deviceLoginTime');
+        const deviceType = document.getElementById('deviceType');
+        
+        // Load data from localStorage if available
+        window.addEventListener('load', function() {
+            // Set device info
+            setDeviceInfo();
+            
+            // Set start time display
+            const now = new Date();
+            startTimeDisplay.textContent = formatTimeDisplay(now);
+            
+            // Display login time
+            const loginTime = localStorage.getItem('loginTime') || new Date().toLocaleString();
+            deviceLoginTime.textContent = loginTime;
+            
+            // Save login time if not already saved
+            if (!localStorage.getItem('loginTime')) {
+                localStorage.setItem('loginTime', new Date().toLocaleString());
+            }
+            
+            // Load saved data
+            const savedData = localStorage.getItem('telegramEarningAppData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    totalSeconds = data.totalSeconds || 0;
+                    earnings = data.earnings || 0;
+                    history = data.history || [];
+                    isRunning = data.isRunning || false;
+                    
+                    updateDisplay();
+                    updateHistoryList();
+                    
+                    // If was running when saved, restart the timer
+                    if (isRunning) {
+                        startTimer();
+                    }
+                } catch (e) {
+                    console.error("Error loading saved data:", e);
+                    resetData();
+                }
+            } else {
+                // Initial data setup if no saved data is found
+                resetData();
+                saveToLocalStorage();
+            }
+        });
+        
+        function resetData() {
+            earnings = 0;
+            totalSeconds = 0;
+            history = [];
+            isRunning = false;
+            // Note: Don't save to localStorage here, wait for the load listener
+            updateDisplay();
+        }
+        
+        // Set device type
+        function setDeviceInfo() {
+            const userAgent = navigator.userAgent;
+            let device = "Desktop/Laptop";
+            
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
+                device = "Mobile/Tablet";
+            }
+            
+            deviceType.textContent = device;
+        }
+        
+        // Format time as HH:MM:SS
+        function formatTime(seconds) {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            
+            return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // Format time for display
+        function formatTimeDisplay(date) {
+            return date.toLocaleTimeString('en-US', {hour12: false});
+        }
+        
+        // Format currency
+        function formatCurrency(amount) {
+            // Round the earnings to the nearest whole number for display
+            return Math.round(amount).toLocaleString('en-US') + ' ကျပ်';
+        }
+        
+        // Update display
+        function updateDisplay() {
+            timeDisplay.textContent = formatTime(totalSeconds);
+            earningsDisplay.textContent = formatCurrency(earnings);
+            
+            // Update the current earnings in the history/current session row
+            const currentEarnings = document.getElementById('currentEarningsDisplay');
+            if(currentEarnings) {
+                currentEarnings.textContent = formatCurrency(earnings);
+            }
+        }
+        
+        // Start timer
+        function startTimer() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            
+            timerInterval = setInterval(() => {
+                totalSeconds++;
+                // ဝင်ငွေကို စက္ကန့်အလိုက် တိုးမြှင့်တွက်ချက်
+                earnings = totalSeconds * ratePerSecond; 
+                updateDisplay();
+                
+                // Auto-save every 5 seconds
+                if (totalSeconds % 5 === 0) {
+                    saveToLocalStorage();
+                }
+                
+                // Add to history every 10 minutes (600 seconds)
+                if (totalSeconds % 600 === 0) {
+                    addHistoryItem();
+                }
+            }, 1000);
+            
+            saveToLocalStorage();
+        }
+        
+        // Pause timer
+        function pauseTimer() {
+            if (!isRunning) return;
+            
+            isRunning = false;
+            clearInterval(timerInterval);
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            
+            saveToLocalStorage();
+        }
+        
+        // Reset timer
+        function resetTimer() {
+            pauseTimer();
+            
+            // Add final history before reset (ရရှိထားတဲ့ ဝင်ငွေကို မှတ်တမ်းတင်ရန်)
+            if (totalSeconds > 0) {
+                addHistoryItem();
+            }
+            
+            totalSeconds = 0;
+            earnings = 0;
+            updateDisplay();
+            
+            // Start time ကို အသစ်ပြင်ပါ
+            const now = new Date();
+            startTimeDisplay.textContent = formatTimeDisplay(now);
+            
+            // History
